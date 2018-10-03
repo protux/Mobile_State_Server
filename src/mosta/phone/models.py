@@ -2,6 +2,7 @@ from django.conf import settings as django_settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from mosta.base import validators
 from mosta.power.models import PowerSocket
 
 
@@ -18,10 +19,14 @@ class Phone(models.Model):
         on_delete=models.CASCADE
     )
     label = models.CharField(max_length=20)
-    battery_level = models.IntegerField(blank=True, null=True)
+    battery_level = models.IntegerField(
+        blank=True,
+        null=True,
+        validators=[validators.number_between_zero_and_one_hundred]
+    )
     needs_charging = models.BooleanField(default=False)
-    state = models.CharField(max_length=15, choices=PHONE_STATES)
-    last_seen = models.DateTimeField()
+    state = models.CharField(max_length=15, choices=PHONE_STATES, default='idle')
+    last_seen = models.DateTimeField(null=True, blank=True)
     attached_power_socket = models.ForeignKey(
         PowerSocket,
         on_delete=models.CASCADE,
