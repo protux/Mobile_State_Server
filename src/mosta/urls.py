@@ -21,8 +21,8 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = i18n_patterns(
-    url(r'^', include('mosta.phone.urls')),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^api/', include('mosta.api.urls')),
     path('admin/', admin.site.urls),
 )
 if settings.DEBUG:

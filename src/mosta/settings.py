@@ -61,7 +61,7 @@ ROOT_URLCONF = 'mosta.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['mosta/templates/'],
+        'DIRS': ['mosta/base/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -140,7 +140,7 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'mosta.phone.exception_handler.rest_exception_handler',
+    'EXCEPTION_HANDLER': 'mosta.api.exception.rest_exception_handler',
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
