@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+    <h1>{{ phone.label }}</h1>
+    <table>
+        <tbody>
+        <tr>
+            <td>{% trans 'Battery Level' %}</td>
+            <td>{{ phone.battery_level }}</td>
+        </tr>
+        <tr>
+            <td>{% trans 'Needs Charging' %}</td>
+            <td>{{ phone.needs_charging }}</td>
+        </tr>
+        <tr>
+            <td>{% trans 'State' %}</td>
+            <td>{{ phone.state }}</td>
+        </tr>
+        <tr>
+            <td>{% trans 'Last Seen' %}</td>
+            <td>{{ phone.last_seen }}</td>
+        </tr>
+        <tr>
+            <td>{% trans 'Attached Power Socket' %}</td>
+            <td>{{ phone.attached_power_socket }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <ul>
+        <li><a href="{% url 'phone:update' phone.id %}">{% trans 'Edit Phone' %}</a></li>
+        <li><a href="{% url 'phone:delete' phone.id %}">{% trans 'Delete Phone' %}</a></li>
+    </ul>
+{% endblock content %}

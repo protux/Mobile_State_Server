@@ -1,6 +1,8 @@
 from django.conf import settings as django_settings
 from django.db import models
 
+from mosta.base.validators import positive_number
+
 
 class PowerSocket(models.Model):
     owner = models.ForeignKey(
@@ -9,5 +11,5 @@ class PowerSocket(models.Model):
     )
     label = models.CharField(max_length=25)
     namespace = models.CharField(max_length=10)
-    socket_id = models.IntegerField()
+    socket_id = models.IntegerField(validators=[positive_number])
     active = models.BooleanField(default=False)

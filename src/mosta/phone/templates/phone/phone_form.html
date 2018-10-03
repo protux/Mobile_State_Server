@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+    {% if form.subject.errors %}
+        <ul>
+            {% for error in form.subject.errors %}
+                <li>{{ error|escape }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {{ form.non_field_errors }}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="{% trans 'Submit' %}">
+    </form>
+{% endblock content %}

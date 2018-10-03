@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+    <ul>
+        {% for phone in phones %}
+            <li><a href="{% url 'phone:display' phone.id %}">{{ phone.label }}</a></li>
+        {% endfor %}
+        <li><a href="{% url 'phone:create' %}">{% trans 'Add Phone' %}</a></li>
+    </ul>
+{% endblock content %}

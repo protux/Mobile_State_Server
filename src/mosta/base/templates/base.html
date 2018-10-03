@@ -14,11 +14,11 @@
         <ul>
             <li><a href="/">Home</a></li>
             {% if user.is_authenticated %}
-                <li><a href=""></a></li>
-                <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                <li><a href="{% url 'phone:list' %}">Phones</a></li>
+                <li><a href="{% url 'account_logout' %}">Logout</a></li>
             {% else %}
-                <li><a href="{% url 'accounts:login' %}">Login</a></li>
-                <li><a href="{% url 'accounts:Register' %}">Register</a></li>
+                <li><a href="{% url 'account_login' %}">Login</a></li>
+                <li><a href="{% url 'account_signup' %}">Register</a></li>
             {% endif %}
         </ul>
     </nav>

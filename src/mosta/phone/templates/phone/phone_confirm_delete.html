@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans 'Confirm Deletion' %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            {% blocktrans trimmed with phone.label as phone_label %}
+                Are you sure you want to delete {{ phone_label }}? All related data will also be removed.
+            {% endblocktrans %}
+        </p>
+        <input type="submit" value="{% trans 'Delete Phone' %}">
+    </form>
+{% endblock content %}
