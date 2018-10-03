@@ -48,7 +48,13 @@ class Sim(models.Model):
         on_delete=models.CASCADE
     )
     label = models.CharField(max_length=20)
-    balance = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    balance = models.DecimalField(
+        max_digits=7,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        validators=[validators.positive_or_zero_number]
+    )
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     can_call = models.BooleanField(default=False)
 
@@ -97,7 +103,7 @@ class ChargingHistory(models.Model):
     )
     time = models.DateTimeField(auto_now_add=True)
     issue_type = models.CharField(max_length=25, choices=ISSUE_TYPES)
-    battery_state = models.IntegerField()
+    battery_state = models.IntegerField(validators=[validators.number_between_zero_and_one_hundred])
 
 
 class SMS(models.Model):
@@ -120,4 +126,10 @@ class BalanceHistory(models.Model):
         on_delete=models.CASCADE
     )
     time = models.DateTimeField()
-    balance = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    balance = models.DecimalField(
+        max_digits=7,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        validators=[validators.positive_or_zero_number]
+    )
