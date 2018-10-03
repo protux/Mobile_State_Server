@@ -38,8 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'rest_framework',
     'allauth',
     'allauth.account',
+
+    'mosta.phone',
+    'mosta.power',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +125,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = True
+USE_I18N = False
 
 USE_L10N = True
 
@@ -134,6 +138,11 @@ SITE_ID = 1
 MEDIA_ROOT = 'TODO'
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'mosta.phone.exception_handler.rest_exception_handler',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
 
 if DEV:
     from .settings_dev import *
