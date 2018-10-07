@@ -3,9 +3,11 @@ from django.db import IntegrityError
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext as _
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import ModelFormMixin
 
+from mosta.base.utils import message_utils
 from mosta.phone.models import Phone
 
 
@@ -44,7 +46,7 @@ class CreatePhoneView(CreateView):
         try:
             self.object.save()
         except IntegrityError:
-            # TODO display error message
+            message_utils.add_error_message(self.request.session, _('You already have a phone with this label.'))
             return HttpResponseRedirect(reverse_lazy('phone:create'))
         return super(ModelFormMixin, self).form_valid(form)
 
@@ -65,7 +67,7 @@ class UpdatePhoneView(UpdateView):
         try:
             return super().form_valid(form)
         except IntegrityError:
-            # TODO display error message
+            message_utils.add_error_message(self.request.session, _('You already have a phone with this label.'))
             return HttpResponseRedirect(reverse_lazy('phone:update', args=[self.kwargs.get(self.pk_url_kwarg)]))
 
 

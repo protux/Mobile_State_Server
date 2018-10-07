@@ -1,4 +1,4 @@
-{% load static %}
+{% load static message_handling %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +23,29 @@
         </ul>
     </nav>
 </header>
-{% block content %}{% endblock content %}
+<main>
+    {% get_error_messages request.session as error_messages %}
+    {% if error_messages %}
+        <div class="errors">
+            <ul>
+                {% for error in error_messages %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    {% get_success_messages request.session as success_messages %}
+    {% if success_messages %}
+        <div class="success">
+            <ul>
+                {% for success in success_messages %}
+                    <li>{{ success }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    {% block content %}{% endblock content %}
+</main>
 <footer>
     {%  comment %}insert imprint etc.{% endcomment %}
 </footer>
