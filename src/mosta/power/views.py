@@ -9,6 +9,7 @@ from django.views.generic.edit import ModelFormMixin
 
 from mosta.base.utils import message_utils
 from .models import PowerSocket
+from mosta.phone.models import Phone
 
 
 @method_decorator(verified_email_required, name='dispatch')
@@ -22,6 +23,13 @@ class ListPowerSocketsView(ListView):
 @method_decorator(verified_email_required, name='dispatch')
 class DisplayPowerSocketView(DetailView):
     context_object_name = 'power_socket'
+
+    def get_object(self, queryset=None):
+        power_socket = super().get_object(queryset=queryset)
+        connected_phones = Phone.objects.filter(attached_power_socket=power_socket)
+        if len(connected_phones) > 0:
+            power_socket.connected_phones = connected_phones
+        return power_socket
 
     def get_queryset(self):
         pk = self.kwargs.get(self.pk_url_kwarg)

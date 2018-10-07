@@ -31,4 +31,14 @@
             </tbody>
         </table>
     </div>
+    <h2>{% trans 'Connected Phones' %}</h2>
+    {% if power_socket.connected_phones %}
+        <ul>
+            {% for phone in power_socket.connected_phones %}
+                <li><a href="{% url 'phone:display' pk=phone.id %}">{{ phone.label }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        {% trans 'There are no phones connected to this power socket.' %}
+    {% endif %}
 {% endblock content %}
