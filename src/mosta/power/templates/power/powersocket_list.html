@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n fontawesome %}
+{% block content %}
+    <h1>{% trans 'Your Power Sockets' %}</h1>
+    <ul class="card-list">
+        {% for power_socket in power_sockets %}
+            <li>
+                <a href="{% url 'power:display' power_socket.id %}">
+                    {{ power_socket.label }}
+                    {% if power_socket.active %}
+                        {% fontawesome_icon 'plug' %}
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+        <li><a href="{% url 'power:create' %}">{% fontawesome_icon 'plus-square' %}</a></li>
+    </ul>
+{% endblock content %}

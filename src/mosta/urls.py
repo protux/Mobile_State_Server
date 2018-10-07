@@ -24,6 +24,7 @@ from django.views.generic.base import RedirectView
 urlpatterns = i18n_patterns(
     url(r'^$', RedirectView.as_view(url=reverse_lazy('pages:homepage'), permanent=True)),
     url(r'^phone/', include('mosta.phone.urls')),
+    url(r'^power/', include('mosta.power.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^api/', include('mosta.api.urls')),
     url(r'^pages/', include('mosta.pages.urls')),
