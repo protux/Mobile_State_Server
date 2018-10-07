@@ -38,4 +38,87 @@
             </tbody>
         </table>
     </div>
+
+    <h2>SMS</h2>
+    {% if sim.sms %}
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                <tr>
+                    <th>{% trans 'Sender' %}</th>
+                    <th>{% trans 'Timestamp' %}</th>
+                    <th>{% trans 'Message' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for sms in sim.sms %}
+                    <tr>
+                        <td>{{ sms.sender }}</td>
+                        <td>{{ sms.time_received }}</td>
+                        <td>{{ sms.content }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>There are no SMS received by this SIM-Card.</p>
+    {% endif %}
+
+    <h2>Call History</h2>
+    {% if sim.call_history %}
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                <tr>
+                    <th>{% trans 'Source' %}</th>
+                    <th>{% trans 'Destination' %}</th>
+                    <th>{% trans 'Started' %}</th>
+                    <th>{% trans 'Ended' %}</th>
+                    <th>{% trans 'Direction' %}</th>
+                    <th>{% trans 'Hangup Reason' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for call_history in sim.call_history %}
+                    <tr>
+                        <td>{{ call_history.source_number }}</td>
+                        <td>{{ call_history.destination_number }}</td>
+                        <td>{{ call_history.started }}</td>
+                        <td>{{ call_history.ended }}</td>
+                        <td>{{ call_history.direction }}</td>
+                        <td>{{ call_history.hangup_reason }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>{% trans 'There is no call history for this SIM-Card.' %}</p>
+    {% endif %}
+
+    <h2>Balance History</h2>
+    {% if sim.balance_history %}
+
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                <tr>
+                    <th>{% trans 'Timestamp' %}</th>
+                    <th>{% trans 'Balance' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for balance_history in sim.balance_history %}
+                    <tr>
+                        <td>{{ balance_history.time }}</td>
+                        <td>{{ balance_history.balance }}€</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>{% trans 'There is no balance history for this SIM-Card.' %}</p>
+    {% endif %}
 {% endblock content %}

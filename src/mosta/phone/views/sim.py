@@ -8,7 +8,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.views.generic.edit import ModelFormMixin
 
 from mosta.base.utils import message_utils
-from mosta.phone.models import Sim
+from mosta.phone.models import Sim, CallHistory, SMS, BalanceHistory
 
 
 @method_decorator(verified_email_required, name='dispatch')
@@ -22,6 +22,19 @@ class ListSimsView(ListView):
 @method_decorator(verified_email_required, name='dispatch')
 class DisplaySimView(DetailView):
     context_object_name = 'sim'
+
+    def get_object(self, queryset=None):
+        sim = super().get_object(queryset=queryset)
+        call_history = CallHistory.objects.filter(issuer=sim)
+        if len(call_history) > 0:
+            sim.call_history = call_history
+        sms = SMS.objects.filter(sim=sim)
+        if len(sms) > 0:
+            sim.sms = sms
+        balance_history = BalanceHistory.objects.filter(sim=sim)
+        if len(balance_history) > 0:
+            sim.balance_history = balance_history
+        return sim
 
     def get_queryset(self):
         pk = self.kwargs.get(self.pk_url_kwarg)
