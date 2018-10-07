@@ -1,4 +1,4 @@
-{% load static message_handling bootstrap4 fontawesome %}
+{% load static i18n message_handling bootstrap4 fontawesome %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,18 +24,30 @@
             </div>
             <div id="nav-main" class="collapse navbar-collapse">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{% url 'pages:homepage' %}" class="nav-link">Home</a></li>
+                    <li class="nav-item">
+                        <a href="{% url 'pages:homepage' %}" class="nav-link">{% trans 'Home' %}</a>
+                    </li>
                     {% if user.is_authenticated %}
-                        <li class="nav-item"><a href="{% url 'phone:list' %}" class="nav-link">Phones</a></li>
-                        <li class="nav-item"><a href="{% url 'power:list' %}" class="nav-link">Power Sockets</a></li>
+                        <li class="nav-item">
+                            <a href="{% url 'phone:list' %}" class="nav-link">{% trans 'Phones' %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'power:list' %}" class="nav-link">{% trans 'Power Sockets' %}</a>
+                        </li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
-                        <li class="nav-item"><a href="{% url 'account_logout' %}" class="nav-link">Logout</a></li>
+                        <li class="nav-item">
+                            <a href="{% url 'account_logout' %}" class="nav-link">{% trans 'Logout' %}</a>
+                        </li>
                     {% else %}
-                        <li class="nav-item"><a href="{% url 'account_login' %}" class="nav-link">Login</a></li>
-                        <li class="nav-item"><a href="{% url 'account_signup' %}" class="nav-link">Register</a></li>
+                        <li class="nav-item">
+                            <a href="{% url 'account_login' %}" class="nav-link">{% trans 'Login' %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'account_signup' %}" class="nav-link">{% trans 'Register' %}</a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
