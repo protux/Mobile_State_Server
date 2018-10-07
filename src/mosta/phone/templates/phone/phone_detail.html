@@ -3,8 +3,9 @@
 {% block content %}
     <h1>
         {{ phone.label }}
-        <a href="{% url 'phone:update' phone.id %}" title="{% trans 'Edit' %}">{% fontawesome_icon 'edit' %}</a>
-        <a href="{% url 'phone:delete' phone.id %}" title="{% trans 'Delete' %}">{% fontawesome_icon 'trash' %}</a>
+        <a href="{% url 'phone:update_phone' phone.id %}" title="{% trans 'Edit' %}">{% fontawesome_icon 'edit' %}</a>
+        <a href="{% url 'phone:delete_phone' phone.id %}"
+           title="{% trans 'Delete' %}">{% fontawesome_icon 'trash' %}</a>
     </h1>
     <div class="table-responsive">
         <table class="table table-dark table-striped">
@@ -38,4 +39,15 @@
             </tbody>
         </table>
     </div>
+
+    <h2>{% trans 'Sim-Cards' %}</h2>
+    {% if phone.sims %}
+        <ul>
+            {% for sim in phone.sims %}
+                <li><a href="{% url 'phone:display_sim' pk=sim.id %}">{{ sim.label }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>{% trans 'This phone contains no sim cards.' %}</p>
+    {% endif %}
 {% endblock content %}

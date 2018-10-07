@@ -1,0 +1,16 @@
+{% load i18n bootstrap4 %}
+{% if form.subject.errors %}
+    <ul>
+        {% for error in form.subject.errors %}
+            <li>{{ error|escape }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{{ form.non_field_errors }}
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+    {% endbuttons %}
+</form>

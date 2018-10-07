@@ -34,6 +34,9 @@ class Phone(models.Model):
         blank=True
     )
 
+    def __str__(self):
+        return self.label
+
     class Meta:
         unique_together = (('owner', 'label'),)
 
@@ -57,6 +60,9 @@ class Sim(models.Model):
     )
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     can_call = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.label
 
     class Meta:
         unique_together = (('owner', 'label'),)

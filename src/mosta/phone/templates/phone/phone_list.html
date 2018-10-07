@@ -5,7 +5,7 @@
     <ul class="card-list">
         {% for phone in phones %}
             <li>
-                <a href="{% url 'phone:display' phone.id %}">
+                <a href="{% url 'phone:display_phone' phone.id %}">
                     {{ phone.label }}
                     {% if phone.needs_charging %}
                         <br>
@@ -14,6 +14,6 @@
                 </a>
             </li>
         {% endfor %}
-        <li><a href="{% url 'phone:create' %}">{% fontawesome_icon 'plus-square' %}</a></li>
+        <li><a href="{% url 'phone:create_phone' %}">{% fontawesome_icon 'plus-square' %}</a></li>
     </ul>
 {% endblock content %}

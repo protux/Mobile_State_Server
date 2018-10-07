@@ -35,7 +35,7 @@
     {% if power_socket.connected_phones %}
         <ul>
             {% for phone in power_socket.connected_phones %}
-                <li><a href="{% url 'phone:display' pk=phone.id %}">{{ phone.label }}</a></li>
+                <li><a href="{% url 'phone:display_phone' pk=phone.id %}">{{ phone.label }}</a></li>
             {% endfor %}
         </ul>
     {% else %}

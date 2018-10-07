@@ -29,7 +29,10 @@
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a href="{% url 'phone:list' %}" class="nav-link">{% trans 'Phones' %}</a>
+                            <a href="{% url 'phone:list_phones' %}" class="nav-link">{% trans 'Phones' %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'phone:list_sims' %}" class="nav-link">{% trans 'Sim-Cards' %}</a>
                         </li>
                         <li class="nav-item">
                             <a href="{% url 'power:list' %}" class="nav-link">{% trans 'Power Sockets' %}</a>

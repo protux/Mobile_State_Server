@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n fontawesome %}
+{% block content %}
+    <h1>{% trans 'Your Sim-Cards' %}</h1>
+    <ul class="card-list">
+        {% for sim in sims %}
+            <li>
+                <a href="{% url 'phone:display_sim' sim.id %}">
+                    {{ sim.label }}
+                    {% if sim.can_call %}
+                        <br>
+                        <span>{% fontawesome_icon 'phone' %}</span>
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+        <li><a href="{% url 'phone:create_sim' %}">{% fontawesome_icon 'plus-square' %}</a></li>
+    </ul>
+{% endblock content %}
