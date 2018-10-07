@@ -18,12 +18,15 @@ from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, reverse_lazy
+from django.views.generic.base import RedirectView
 
 urlpatterns = i18n_patterns(
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('pages:homepage'), permanent=True)),
     url(r'^phone/', include('mosta.phone.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^api/', include('mosta.api.urls')),
+    url(r'^pages/', include('mosta.pages.urls')),
     path('admin/', admin.site.urls),
 )
 if settings.DEBUG:

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans 'mosta - easy mobile state management' %}</h1>
+    <p>
+        {% blocktrans trimmed %}
+            Mosta helps you to manage the state of your mobiles and connects them with your smart power sockets. Sign up
+            and try it yourself!
+        {% endblocktrans %}
+    </p>
+{% endblock content %}

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'mosta.phone',
     'mosta.power',
     'mosta.base',
+    'mosta.pages',
 ]
 
 MIDDLEWARE = [
