@@ -1,10 +1,19 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n fontawesome %}
 {% block content %}
-    <ul>
+    <h1>{% trans 'Your Phones' %}</h1>
+    <ul class="card-list">
         {% for phone in phones %}
-            <li><a href="{% url 'phone:display' phone.id %}">{{ phone.label }}</a></li>
+            <li>
+                <a href="{% url 'phone:display' phone.id %}">
+                    {{ phone.label }}
+                    {% if phone.needs_charging %}
+                        <br>
+                        <span>{% fontawesome_icon 'battery-empty' %}</span>
+                    {% endif %}
+                </a>
+            </li>
         {% endfor %}
-        <li><a href="{% url 'phone:create' %}">{% trans 'Add Phone' %}</a></li>
+        <li><a href="{% url 'phone:create' %}">{% fontawesome_icon 'plus-square' %}</a></li>
     </ul>
 {% endblock content %}

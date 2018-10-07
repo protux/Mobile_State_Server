@@ -1,26 +1,44 @@
-{% load static message_handling %}
+{% load static message_handling bootstrap4 fontawesome %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>mosta</title>
+
+    <script src="{% static 'jquery/jquery-3.3.1.js' %}" type="application/javascript"></script>
+    {% fontawesome_stylesheet %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link href="{% static 'mosta/css/style.css' %}" type="text/css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
 <header>
-    <div class="logo">
-        <img src="{% static 'res/logo.png' %}">
-    </div>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'phone:list' %}">Phones</a></li>
-                <li><a href="{% url 'account_logout' %}">Logout</a></li>
-            {% else %}
-                <li><a href="{% url 'account_login' %}">Login</a></li>
-                <li><a href="{% url 'account_signup' %}">Register</a></li>
-            {% endif %}
-        </ul>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-main">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="/">mosta</a>
+            </div>
+            <div id="nav-main" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'phone:list' %}" class="nav-link">Phones</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'account_logout' %}" class="nav-link">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a href="{% url 'account_login' %}" class="nav-link">Login</a></li>
+                        <li class="nav-item"><a href="{% url 'account_signup' %}" class="nav-link">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
     </nav>
 </header>
 <main>

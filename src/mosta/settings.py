@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'bootstrap4',
+    'fontawesome',
 
     'mosta.phone',
     'mosta.power',
@@ -140,6 +142,9 @@ SITE_ID = 1
 MEDIA_ROOT = 'TODO'
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    './mosta/static/',
+]
 
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'mosta.api.exception.rest_exception_handler',
