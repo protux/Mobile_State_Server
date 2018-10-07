@@ -8,3 +8,13 @@ class IsOwner(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         return obj.owner == request.user
+
+
+class IsOwnerOfSim(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.sim.owner == request.user
+
+
+class IsOwnerOfIssuer(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        return obj.phone.issuer == request.user
