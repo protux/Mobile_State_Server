@@ -34,7 +34,11 @@
             </tr>
             <tr>
                 <td>{% trans 'Attached Power Socket' %}</td>
-                <td>{{ phone.attached_power_socket }}</td>
+                <td>
+                    <a href="{% url 'power:display' pk=phone.attached_power_socket.id %}">
+                        {{ phone.attached_power_socket }}
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>
