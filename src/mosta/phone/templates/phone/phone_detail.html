@@ -35,9 +35,13 @@
             <tr>
                 <td>{% trans 'Attached Power Socket' %}</td>
                 <td>
-                    <a href="{% url 'power:display' pk=phone.attached_power_socket.id %}">
-                        {{ phone.attached_power_socket }}
-                    </a>
+                    {% if phone.attached_power_socket %}
+                        <a href="{% url 'power:display' pk=phone.attached_power_socket.id %}">
+                            {{ phone.attached_power_socket }}
+                        </a>
+                    {% else %}
+                        {% trans 'No socket attached' %}
+                    {% endif %}
                 </td>
             </tr>
             </tbody>
