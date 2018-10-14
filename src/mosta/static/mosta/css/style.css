@@ -1,11 +1,20 @@
 body {
     background: #2f2f2f;
-    color: #9d9d9d;
+    color: #fff;
+}
+a {
+    text-decoration: underline;
+}
+a:hover {
+    text-decoration: none;
 }
 a, a:hover, a:visited, a:active {
-    color: #9d9d9d;
+    color: #fff;
 }
-
+.nav-link,
+.navbar-brand {
+    text-decoration: none;
+}
 .navbar-inverse {
     border-radius: 0;
 }
