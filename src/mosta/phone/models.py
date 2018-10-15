@@ -7,12 +7,17 @@ from mosta.power.models import PowerSocket
 
 
 class Phone(models.Model):
+    PHONE_STATE_CALLING = 'calling'
+    PHONE_STATE_IDLE = 'idle'
+    PHONE_STATE_SWITCHED_OFF = 'switched_off'
+    PHONE_STATE_REMOVED = 'removed'
+    PHONE_STATE_UNKNOWN = 'unknown'
     PHONE_STATES = (
-        ('calling', _('Calling')),
-        ('idle', _('Idle')),
-        ('switched_off', _('Switched off')),
-        ('removed', _('Removed from pool')),
-        ('unknown', _('Unknown')),
+        (PHONE_STATE_CALLING, _('Calling')),
+        (PHONE_STATE_IDLE, _('Idle')),
+        (PHONE_STATE_SWITCHED_OFF, _('Switched off')),
+        (PHONE_STATE_REMOVED, _('Removed from pool')),
+        (PHONE_STATE_UNKNOWN, _('Unknown')),
     )
     owner = models.ForeignKey(
         django_settings.AUTH_USER_MODEL,
@@ -25,7 +30,7 @@ class Phone(models.Model):
         validators=[validators.number_between_zero_and_one_hundred]
     )
     needs_charging = models.BooleanField(default=False)
-    state = models.CharField(max_length=15, choices=PHONE_STATES, default='idle')
+    state = models.CharField(max_length=15, choices=PHONE_STATES, default=PHONE_STATE_IDLE)
     last_seen = models.DateTimeField(null=True, blank=True)
     attached_power_socket = models.ForeignKey(
         PowerSocket,
@@ -69,16 +74,23 @@ class Sim(models.Model):
 
 
 class CallHistory(models.Model):
+    CALL_DIRECTION_IN = 'in'
+    CALL_DIRECTION_OUT = 'out'
+    CALL_DIRECTION_UNKNOWN = 'u'
     CALL_DIRECTION_CHOICES = (
-        ('in', _('Inbound')),
-        ('out', _('Outbound')),
-        ('u', _('Unknown')),
+        (CALL_DIRECTION_IN, _('Inbound')),
+        (CALL_DIRECTION_OUT, _('Outbound')),
+        (CALL_DIRECTION_UNKNOWN, _('Unknown')),
     )
+    HANGUP_REASON_ABORT = 'abort'
+    HANGUP_REASON_CALLEE_HUNG_UP = 'callee_hung_up'
+    HANGUP_REASON_CALLER_HUNG_UP = 'caller_hung_up'
+    HANGUP_REASON_UNKNOWN = 'unknown'
     HANGUP_REASONS = (
-        ('abort', _('Aborted')),
-        ('callee_hung_up', _('Callee hung up')),
-        ('caller_hung_up', _('Caller hung up')),
-        ('unknown', _('Unknown'))
+        (HANGUP_REASON_ABORT, _('Aborted')),
+        (HANGUP_REASON_CALLEE_HUNG_UP, _('Callee hung up')),
+        (HANGUP_REASON_CALLER_HUNG_UP, _('Caller hung up')),
+        (HANGUP_REASON_UNKNOWN, _('Unknown'))
     )
     owner = models.ForeignKey(
         django_settings.AUTH_USER_MODEL,
@@ -97,11 +109,15 @@ class CallHistory(models.Model):
 
 
 class ChargingHistory(models.Model):
+    ISSUE_TYPE_REQUESTED_CHARGING = 'requested_charging'
+    ISSUE_TYPE_ANNOUNCED_CHARGING = 'announced_charging'
+    ISSUE_TYPE_ANNOUNCED_FULL_BATTERY = 'announced_full_battery'
+    ISSUE_TYPE_STOPPED_CHARGING = 'stopped_charging'
     ISSUE_TYPES = (
-        ('requested_charging', _('Requested charging')),
-        ('announced_charging', _('Announced charging')),
-        ('announced_full_battery', _('Announced full battery')),
-        ('stopped_charging', _('Stopped charging')),
+        (ISSUE_TYPE_REQUESTED_CHARGING, _('Requested charging')),
+        (ISSUE_TYPE_ANNOUNCED_CHARGING, _('Announced charging')),
+        (ISSUE_TYPE_ANNOUNCED_FULL_BATTERY, _('Announced full battery')),
+        (ISSUE_TYPE_STOPPED_CHARGING, _('Stopped charging')),
     )
     issuer = models.ForeignKey(
         Phone,
