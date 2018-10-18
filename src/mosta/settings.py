@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'fontawesome',
 
     'mosta.phone',
-    'mosta.power',
     'mosta.base',
     'mosta.pages',
 ]

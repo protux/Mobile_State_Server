@@ -3,8 +3,8 @@
 {% block content %}
     <h1>
         {{ power_socket.label }}
-        <a href="{% url 'power:update' power_socket.id %}" title="{% trans 'Edit' %}">{% fontawesome_icon 'edit' %}</a>
-        <a href="{% url 'power:delete' power_socket.id %}"
+        <a href="{% url 'phone:update_power_socket' power_socket.id %}" title="{% trans 'Edit' %}">{% fontawesome_icon 'edit' %}</a>
+        <a href="{% url 'phone:delete_power_socket' power_socket.id %}"
            title="{% trans 'Delete' %}">{% fontawesome_icon 'trash' %}</a>
     </h1>
     <div class="table-responsive">

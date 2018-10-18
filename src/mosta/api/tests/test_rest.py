@@ -4,8 +4,7 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from mosta.phone.models import Phone
-from mosta.power.models import PowerSocket
+from mosta.phone.models import Phone, PowerSocket
 from mosta.utils import test_utils
 
 

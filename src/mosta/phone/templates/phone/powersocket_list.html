@@ -5,7 +5,7 @@
     <ul class="card-list">
         {% for power_socket in power_sockets %}
             <li>
-                <a href="{% url 'power:display' power_socket.id %}">
+                <a href="{% url 'phone:display_power_socket' power_socket.id %}">
                     {{ power_socket.label }}
                     {% if power_socket.active %}
                         {% fontawesome_icon 'plug' %}
@@ -13,6 +13,6 @@
                 </a>
             </li>
         {% endfor %}
-        <li><a href="{% url 'power:create' %}">{% fontawesome_icon 'plus-square' %}</a></li>
+        <li><a href="{% url 'phone:create_power_socket' %}">{% fontawesome_icon 'plus-square' %}</a></li>
     </ul>
 {% endblock content %}

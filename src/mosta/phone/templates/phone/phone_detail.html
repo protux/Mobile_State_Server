@@ -36,7 +36,7 @@
                 <td>{% trans 'Attached Power Socket' %}</td>
                 <td>
                     {% if phone.attached_power_socket %}
-                        <a href="{% url 'power:display' pk=phone.attached_power_socket.id %}">
+                        <a href="{% url 'phone:display_power_socket' pk=phone.attached_power_socket.id %}">
                             {{ phone.attached_power_socket }}
                         </a>
                     {% else %}

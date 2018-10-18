@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from mosta.phone.models import Phone, ChargingHistory
-from mosta.power.models import PowerSocket
+from mosta.phone.models import Phone, ChargingHistory, PowerSocket
 
 
 class PhoneTestCase(TestCase):
