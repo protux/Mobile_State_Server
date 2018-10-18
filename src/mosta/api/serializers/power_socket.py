@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from mosta.power.models import PowerSocket
+from mosta.phone.models import PowerSocket
 
 
 class PowerSocketSerializer(serializers.ModelSerializer):
