@@ -147,7 +147,7 @@ class BalanceHistory(models.Model):
         Sim,
         on_delete=models.CASCADE
     )
-    time = models.DateTimeField()
+    time = models.DateTimeField(auto_now_add=True)
     balance = models.DecimalField(
         max_digits=7,
         decimal_places=2,
