@@ -20,6 +20,7 @@ class DashBoardView(TemplateView):
             ),
             'charging_phones': dashboard_utils.get_phones_charging(self.request.user),
             'phones_requiring_energy': dashboard_utils.get_phones_requiring_energy(self.request.user),
-            'call_duration_data_set': dashboard_utils.get_call_duration_over_time_per_sim(self.request.user)
+            'call_duration_data_set': dashboard_utils.get_call_duration_over_time_per_sim(self.request.user),
+            'balance_data_set': dashboard_utils.get_balance_over_time_per_sim(self.request.user),
         })
         return context

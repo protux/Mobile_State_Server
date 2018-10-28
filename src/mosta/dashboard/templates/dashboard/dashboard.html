@@ -9,6 +9,9 @@
         <div class="col-6">
             <canvas id="calltime" width="200px" height="100px"></canvas>
         </div>
+        <div class="col-6">
+            <canvas id="balance" width="200px" height="100px"></canvas>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -133,12 +136,19 @@
 
     <script type="application/javascript">
         {% comment %}Call over time chart{% endcomment %}
-        const ctx = document.getElementById("calltime");
-        new Chart(ctx, {
+        new Chart(document.getElementById("calltime"), {
                 type: 'line',
                 data: {
                     labels: {{ call_duration_data_set.labels|safe }},
                     datasets: {{ call_duration_data_set.datasets|safe }},
+                }
+            }
+        );
+        new Chart(document.getElementById("balance"), {
+                type: 'line',
+                data: {
+                    labels: {{ balance_data_set.labels|safe }},
+                    datasets: {{ balance_data_set.datasets|safe }},
                 }
             }
         );

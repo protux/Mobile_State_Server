@@ -1,11 +1,13 @@
 import json
 from datetime import timedelta
+from decimal import Decimal
 
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 
 from mosta.base.utils import time_utils
+from mosta.base import json_encoders
 from mosta.phone.models import Phone, SMS, BalanceHistory, CallHistory, Sim
 
 
@@ -135,3 +137,31 @@ def get_call_duration_over_time_per_sim(user, days=7):
         }]
     weekdays = time_utils.days_to_weekdays(dates)
     return {'datasets': json.dumps(data_sets), 'labels': json.dumps(weekdays)}
+
+
+def get_balance_over_time_per_sim(user, days=7):
+    sims = Sim.objects.filter(owner=user)
+    dates = time_utils.get_last_days(days)
+    data_sets = []
+    for sim in sims:
+        data = []
+        for date in dates:
+            balance_history = BalanceHistory.objects.filter(
+                sim=sim,
+                time__day=date.day,
+                time__month=date.month,
+                time__year=date.year
+            ).order_by('-time')[:1]
+            if len(balance_history) == 0:
+                if len(data) > 0:
+                    data += [data[-1]]
+                else:
+                    data += [Decimal(0)]
+            else:
+                data += [balance_history[0].balance]
+        data_sets += [{
+            'label': sim.label,
+            'data': data
+        }]
+    weekdays = time_utils.days_to_weekdays(dates)
+    return {'datasets': json.dumps(data_sets, cls=json_encoders.DecimalEncoder), 'labels': json.dumps(weekdays)}
