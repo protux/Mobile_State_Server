@@ -1,12 +1,13 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 
 from mosta.phone.models import Phone, SMS, BalanceHistory, CallHistory
 
 
 def get_missing_phones(user):
-    missing_phones = Phone.objects.filter(owner=user, last_seen__lt=datetime.now() - timedelta(days=2))
+    missing_phones = Phone.objects.filter(owner=user, last_seen__lt=timezone.now() - timedelta(days=2))
     if len(missing_phones) > 0:
         return missing_phones
 
