@@ -1,23 +1,84 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n time_calculation %}
 {% block content %}
-    {% if missing_phones %}
-        <h1>{% trans 'Missing Phones' %}</h1>
-        <table>
-            <thead>
-            <tr>
-                <th>{% trans 'Phone' %}</th>
-                <th>{% trans 'Last Seen' %}</th>
-            <tr>
-            </thead>
-            <tbody>
-            {% for missing_phone in missing_phones %}
-                <tr>
-                    <td><a href="{% url 'phone:display_phone' pk=missing_phone.id %}">{{ missing_phone.label }}</a></td>
-                    <td>{{ missing_phone.last_seen }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+    <div class="row">
+        <div class="col">
+            <h1>{% trans 'Missing Phones' %}</h1>
+            {% if missing_phones %}
+                <table class="table table-dark table-striped">
+                    <thead>
+                    <tr>
+                        <th>{% trans 'Phone' %}</th>
+                        <th>{% trans 'Last Seen' %}</th>
+                    <tr>
+                    </thead>
+                    <tbody>
+                    {% for missing_phone in missing_phones %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'phone:display_phone' pk=missing_phone.id %}">{{ missing_phone.label }}</a>
+                            </td>
+                            <td>{{ missing_phone.last_seen }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>{% trans 'There are no missing phones.' %}</p>
+            {% endif %}
+        </div>
+
+        <div class="col">
+            <h1>{% trans 'Latest SMS' %}</h1>
+            {% if latest_sms %}
+                <table class="table table-dark table-striped">
+                    <thead>
+                    <tr>
+                        <th>{% trans 'Receiver' %}</th>
+                        <th>{% trans 'Received' %}</th>
+                        <th>{% trans 'Message' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for sms in latest_sms %}
+                        <tr>
+                            <td><a href="{% url 'phone:display_sim' pk=sms.sim.id %}">{{ sms.sim.label }}</a></td>
+                            <td>{{ sms.time_received }}</td>
+                            <td>{{ sms.content }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>{% trans 'There are no SMS.' %}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1>{% trans 'Call Divergences' %}</h1>
+            {% if average_call_divergences_per_sim %}
+                <table class="table table-dark table-striped">
+                    <thead>
+                    <tr>
+                        <th>{% trans 'SIM-Card' %}</th>
+                        <th>{% trans 'Divergence' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for divergence in average_call_divergences_per_sim %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'phone:display_sim' pk=divergence.sim.id %}">{{ divergence.sim }}</a>
+                            </td>
+                            <td>{{ divergence.divergence|seconds_to_minutes }} {% trans 'minutes' %}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>{% trans 'There are no call divergences.' %}</p>
+            {% endif %}
+        </div>
+    </div>
 {% endblock content %}

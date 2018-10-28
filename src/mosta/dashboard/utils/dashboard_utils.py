@@ -87,7 +87,7 @@ def get_sim_cards_divergent_from_average_call_duration(user, max_divergence_in_m
             average_call_duration_divergence = max(average_call_duration_divergence,
                                                    average_call_duration_divergence * -1)
             if average_call_duration_divergence > max_divergence_in_seconds:
-                divergent_sims += (call.issuer, average_call_duration_divergence)
+                divergent_sims += [{'sim': call.issuer, 'divergence': average_call_duration_divergence}]
         checked_sims += [call.issuer]
 
     return divergent_sims

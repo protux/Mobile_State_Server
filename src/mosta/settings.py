@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.humanize',
 
     'rest_framework',
     'allauth',
@@ -45,8 +46,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'fontawesome',
 
-    'mosta.phone',
     'mosta.base',
+    'mosta.phone',
     'mosta.pages',
     'mosta.dashboard',
 ]
