@@ -1,10 +1,12 @@
+import json
 from datetime import timedelta
 
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import ugettext as _
-from django.db.models import Q
 
-from mosta.phone.models import Phone, SMS, BalanceHistory, CallHistory
+from mosta.base.utils import time_utils
+from mosta.phone.models import Phone, SMS, BalanceHistory, CallHistory, Sim
 
 
 def get_missing_phones(user):
@@ -107,3 +109,29 @@ def get_phones_charging(user):
         owner=user,
         attached_power_socket__active=True
     )
+
+
+def get_call_duration_over_time_per_sim(user, days=7):
+    sims = Sim.objects.filter(owner=user)
+    dates = time_utils.get_last_days(days)
+    data_sets = []
+    for sim in sims:
+        data = []
+        for date in dates:
+            call_history = CallHistory.objects.filter(
+                owner=user,
+                issuer=sim,
+                started__day=date.day,
+                started__month=date.month,
+                started__year=date.year
+            )
+            call_duration = 0
+            for call in call_history:
+                call_duration += (call.ended - call.started).seconds
+            data += [int(call_duration / 60)]
+        data_sets += [{
+            'label': sim.label,
+            'data': data
+        }]
+    weekdays = time_utils.days_to_weekdays(dates)
+    return {'datasets': json.dumps(data_sets), 'labels': json.dumps(weekdays)}

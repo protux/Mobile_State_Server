@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
-{% load i18n time_calculation %}
+{% load i18n time_calculation static %}
+{% block js %}
+    <script src="{% static 'chart/Chart.js' %}" type="application/javascript"></script>
+    <script src="{% static 'mosta/js/charts.js' %}" type="application/javascript"></script>
+{% endblock js %}
 {% block content %}
+
+    <div class="row">
+        <div class="col-6">
+            <canvas id="calltime" width="200px" height="100px"></canvas>
+        </div>
+    </div>
     <div class="row">
         <div class="col">
             <h1>{% trans 'Missing Phones' %}</h1>
@@ -121,4 +131,17 @@
             {% endif %}
         </div>
     </div>
+
+    <script type="application/javascript">
+        {% comment %}Call over time chart{% endcomment %}
+        const ctx = document.getElementById("calltime");
+        new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {{ call_duration_data_set.labels|safe }},
+                    datasets: {{ call_duration_data_set.datasets|safe }},
+                }
+            }
+        );
+    </script>
 {% endblock content %}
