@@ -1,2 +1,23 @@
 {% extends 'base.html' %}
-{% block content %}{% endblock content %}
+{% load i18n %}
+{% block content %}
+    {% if missing_phones %}
+        <h1>{% trans 'Missing Phones' %}</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>{% trans 'Phone' %}</th>
+                <th>{% trans 'Last Seen' %}</th>
+            <tr>
+            </thead>
+            <tbody>
+            {% for missing_phone in missing_phones %}
+                <tr>
+                    <td><a href="{% url 'phone:display_phone' pk=missing_phone.id %}">{{ missing_phone.label }}</a></td>
+                    <td>{{ missing_phone.last_seen }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock content %}
