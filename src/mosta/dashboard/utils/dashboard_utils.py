@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from django.utils import timezone
 from django.utils.translation import ugettext as _
+from django.db.models import Q
 
 from mosta.phone.models import Phone, SMS, BalanceHistory, CallHistory
 
@@ -91,3 +92,18 @@ def get_sim_cards_divergent_from_average_call_duration(user, max_divergence_in_m
         checked_sims += [call.issuer]
 
     return divergent_sims
+
+
+def get_phones_requiring_energy(user):
+    return Phone.objects.filter(
+        Q(owner=user),
+        Q(needs_charging=True),
+        Q(attached_power_socket__isnull=True) | Q(attached_power_socket__active=False)
+    )
+
+
+def get_phones_charging(user):
+    return Phone.objects.filter(
+        owner=user,
+        attached_power_socket__active=True
+    )

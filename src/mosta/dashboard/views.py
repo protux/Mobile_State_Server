@@ -17,6 +17,8 @@ class DashBoardView(TemplateView):
             'latest_sms': dashboard_utils.get_latest_sms(self.request.user),
             'average_call_divergences_per_sim': dashboard_utils.get_sim_cards_divergent_from_average_call_duration(
                 self.request.user, 10, timezone.now()
-            )
+            ),
+            'charging_phones': dashboard_utils.get_phones_charging(self.request.user),
+            'phones_requiring_energy': dashboard_utils.get_phones_requiring_energy(self.request.user),
         })
         return context

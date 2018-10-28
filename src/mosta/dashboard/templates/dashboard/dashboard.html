@@ -80,5 +80,45 @@
                 <p>{% trans 'There are no call divergences.' %}</p>
             {% endif %}
         </div>
+
+        <div class="col">
+            <h1>{% trans 'Phones needing energy' %}</h1>
+            {% if phones_requiring_energy %}
+                <table class="table table-dark table-striped">
+                    <thead>
+                    <tr>
+                        <th>{% trans 'Phone' %}</th>
+                        <th>{% trans 'Battery level' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for phone in phones_requiring_energy %}
+                        <tr>
+                            <td><a href="{% url 'phone:display_phone' pk=phone.id %}">{{ phone.label }}</a></td>
+                            <td>{{ phone.battery_level }}%</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>{% trans 'There are no phones requiring energy.' %}</p>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <h1>{% trans 'Charging Phones' %}</h1>
+            {% if charging_phones %}
+                <ul>
+                    {% for phone in charging_phones %}
+                        <li><a href="{% url 'phone:display_phone' pk=phone.id %}">{{ phone.label }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>{% trans 'There are no phones charging.' %}</p>
+            {% endif %}
+        </div>
     </div>
 {% endblock content %}
