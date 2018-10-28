@@ -29,9 +29,15 @@ a, a:hover, a:visited, a:active {
 }
 .card-list li a {
     display: inline-block;
-    width: 5em;
-    height: 5em;
+    width: 7.5em;
+    height: 7.5em;
     border: 1px solid gray;
     padding: 1em;
     text-align: center;
+    overflow: hidden;
+    background-color: #444;
+}
+
+.card-list li a:hover {
+    background-color: #646464;
 }
