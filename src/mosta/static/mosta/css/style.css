@@ -11,6 +11,9 @@ a:hover {
 a, a:hover, a:visited, a:active {
     color: #fff;
 }
+main {
+    padding: 1em;
+}
 .nav-link,
 .navbar-brand {
     text-decoration: none;
