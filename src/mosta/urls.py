@@ -26,10 +26,13 @@ urlpatterns = i18n_patterns(
     url(r'^$', RedirectHomepageOrDashboardView.as_view()),
     url(r'^phone/', include('mosta.phone.urls')),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^api/', include('mosta.api.urls')),
     url(r'^pages/', include('mosta.pages.urls')),
     url(r'^dashboard/', include('mosta.dashboard.urls')),
     path('admin/', admin.site.urls),
 )
+urlpatterns += [
+    url(r'^api/', include('mosta.api.urls')),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
