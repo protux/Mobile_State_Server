@@ -154,7 +154,7 @@ class SMS(models.Model):
         on_delete=models.CASCADE
     )
     sender = models.CharField(max_length=20)
-    content = models.CharField(max_length=160)
+    content = models.TextField()
     time_received = models.DateTimeField()
 
 
